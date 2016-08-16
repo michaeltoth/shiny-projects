@@ -1,7 +1,7 @@
 library(shiny)
 library(readr)
 
-top_10_names <- read_csv('../input/top_10_each_year.csv')
+top_10_names <- read_csv('/srv/shiny-server/census_names/input/top_10_each_year.csv')
 
 shinyUI(fluidPage(
     

@@ -3,7 +3,7 @@ library(dplyr)
 library(readr)
 
 # Get top 10 names
-top_10_names <- read_csv('../input/top_10_each_year.csv')
+top_10_names <- read_csv('/srv/shiny-server/census_names/input/top_10_each_year.csv')
 top_10_names$name <- factor(top_10_names$name)
 
 shinyServer(function(input, output, session) {

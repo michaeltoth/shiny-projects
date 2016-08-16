@@ -1,10 +1,9 @@
 library(dplyr)
 library(readr)
 library(ggplot2)
-setwd('~/dev/names/tracer')
 
 # Get all names
-names <- read_csv('../input/all_names.csv')
+names <- read_csv('/srv/shiny-server/census_names/input/all_names.csv')
 
 shinyServer(function(input, output, session) {
         
