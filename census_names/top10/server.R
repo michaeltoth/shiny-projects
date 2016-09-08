@@ -3,7 +3,8 @@ library(dplyr)
 library(readr)
 
 # Get top 10 names
-top_10_names <- read_csv('/srv/shiny-server/census_names/input/top_10_each_year.csv')
+top_10_names <- read_csv('/srv/shiny-server/census_names/input/top_10_each_year.csv')       # Server
+#top_10_names <- read_csv('~/dev/shiny-projects/census_names/input/top_10_each_year.csv')   # Local
 top_10_names$name <- factor(top_10_names$name)
 
 shinyServer(function(input, output, session) {
@@ -21,10 +22,12 @@ shinyServer(function(input, output, session) {
         ggplot(data, aes(x = name, y = count)) + 
             geom_bar(stat = 'identity') +
             ggtitle(paste('Most Common Names for', sex_name, 'in', input$year)) +
-            xlab('Name') + 
-            ylab('Count') + 
+            xlab('') + 
+            ylab('Number of Babies Born with Name\n') + 
             theme_bw() +
-            theme(panel.border = element_blank())
+            theme(panel.border = element_blank(),
+                  panel.grid = element_blank(),
+                  axis.ticks = element_blank())
     })
     
 })
