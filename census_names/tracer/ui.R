@@ -7,8 +7,8 @@ shinyUI(fluidPage(
         # Sidebar with user inputs
         sidebarPanel(
             textInput(inputId = 'name', 
-                      label = 'Name', 
-                      placeholder = 'Enter a Name Here'),
+                      label = 'Enter a Name', 
+                      value = 'Michael'),
             
             selectInput(inputId = 'sex', 
                         label = 'Sex', 

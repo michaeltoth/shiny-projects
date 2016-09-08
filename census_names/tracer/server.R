@@ -1,9 +1,11 @@
 library(dplyr)
 library(readr)
 library(ggplot2)
+library(tothr) # devtools::install_github('michaeltoth/tothr')
 
 # Get all names
-names <- read_csv('/srv/shiny-server/census_names/input/all_names.csv')
+names <- read_csv('/srv/shiny-server/census_names/input/all_names.csv')         # Server
+#names <- read_csv('~/dev/shiny-projects/census_names/input/all_names.csv')     # Local
 
 shinyServer(function(input, output, session) {
         
@@ -14,12 +16,11 @@ shinyServer(function(input, output, session) {
     
     output$plot1 <- renderPlot({
         data <- selected_data()
-        ggplot(data, aes(x = year, y = rank)) + 
+        ggplot(data, aes(x = year, y = count)) + 
             geom_line() +
-            ggtitle(paste('Popularity of the name', input$name, 'since 1880')) +
+            ggtitle(paste('Popularity of the name', toupper_first(input$name), 'since 1880')) +
             xlab('Year') + 
-            ylab('Rank') + 
-            scale_y_reverse() +
+            ylab('Number of Babies Born with Name\n') + 
             theme_bw() +
             theme(panel.border = element_blank())
     })
