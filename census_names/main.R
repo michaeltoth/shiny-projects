@@ -35,7 +35,6 @@ write.csv(names, 'input/all_names.csv', row.names = F)
 
 # Produce Animations
 p <- ggplot(top_10_each_year, aes(x = proportion, y = count)) +
-    #geom_point(aes(cumulative = T), size = 4) +
     geom_point(color = '#cccccc', size = 4, alpha = .10) +
     geom_point(aes(color = sex, frame = year), size = 4) +
     ggtitle('Year:') +
@@ -54,7 +53,7 @@ p <- ggplot(top_10_each_year, aes(x = proportion, y = count)) +
           axis.title = element_text(size = 16),
           legend.text = element_text(size = 12))
 
-gg_animate(p, filename = 'yearly-birth-names-with-grey.gif', interval = 0.2, ani.width = 600, ani.height = 400)
+gg_animate(p, filename = 'yearly-birth-names-with-grey.gif', interval = 0.2, ani.width = 800, ani.height = 600)
 
 
 # Based on https://gist.github.com/thomasp85/c8e22be4628e4420d4f66bcc6c88ac87
@@ -83,4 +82,4 @@ p2 <- ggplot(top_10_with_fade, aes(x = proportion, y = count, color = sex, frame
           axis.title = element_text(size = 16),
           legend.text = element_text(size = 12))
 
-gg_animate(p2, filename = 'yearly-birth-names-with-trails.gif', interval = 0.2, ani.width = 600, ani.height = 400)
+gg_animate(p2, filename = 'yearly-birth-names-with-trails.gif', interval = 0.2, ani.width = 800, ani.height = 600)
