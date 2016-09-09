@@ -1,6 +1,9 @@
 library(dplyr)
-library(readr)
 library(ggplot2)
+library(gganimate) #devtools::install_github("dgrtwo/gganimate")
+library(readr)
+library(scales)
+
 setwd('~/dev/shiny-projects/census_names/')
 
 # Get first year
@@ -32,3 +35,39 @@ write.csv(names, 'input/all_names.csv', row.names = F)
 
 
 # Animation
+p <- ggplot(top_10_each_year, aes(x = proportion, y = count)) +
+    #geom_point(aes(cumulative = T), size = 4) +
+    geom_point(color = '#cccccc', size = 4, alpha = .10) +
+    geom_point(aes(color = sex, frame = year), size = 4) +
+    xlab('Proportion of Babies Born') +
+    ylab('Number of Babies Born') +
+    scale_color_manual(values = c('#ff99ff', '#66ccff')) +
+    scale_x_continuous(labels = percent) + 
+    theme_bw() +
+    theme(panel.border = element_blank(),
+          panel.grid = element_blank(),
+          legend.position = 'none',
+          axis.ticks = element_blank())
+
+gg_animate(p, interval = 0.2, ani.width = 800, ani.height = 400)
+
+
+anim <- lapply(1:10, function(i) {top_10_each_year$year <- top_10_each_year$year + i; top_10_each_year$fade <- 1 / (i + 2); top_10_each_year})
+top_10_each_year$fade <- 1
+top_10_each_year <- rbind(top_10_each_year, do.call(rbind, anim))
+
+top_10_each_year <- filter(top_10_each_year, year <= 2015)
+
+p2 <- ggplot(top_10_each_year, aes(x = proportion, y = count, color = sex, frame = year, alpha = fade)) +
+    geom_point(size = 4) +
+    xlab('Proportion of Babies Born') +
+    ylab('Number of Babies Born') +
+    scale_color_manual(values = c('#ff99ff', '#66ccff')) +
+    scale_x_continuous(labels = percent) + 
+    theme_bw() +
+    theme(panel.border = element_blank(),
+          panel.grid = element_blank(),
+          legend.position = 'none',
+          axis.ticks = element_blank())
+
+gg_animate(p2, interval = 0.2, ani.width = 800, ani.height = 400)
