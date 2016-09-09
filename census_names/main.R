@@ -53,6 +53,7 @@ gg_animate(p, interval = 0.2, ani.width = 800, ani.height = 400)
 
 # Based on https://gist.github.com/thomasp85/c8e22be4628e4420d4f66bcc6c88ac87
 # Which created https://twitter.com/thomasp85/status/694905779539812352
+# TODO: Make this into a function for tothr
 anim <- lapply(1:10, function(i) {top_10_each_year$year <- top_10_each_year$year + i; top_10_each_year$fade <- 1 / (i + 2); top_10_each_year})
 top_10_each_year$fade <- 1
 top_10_each_year <- rbind(top_10_each_year, do.call(rbind, anim))
